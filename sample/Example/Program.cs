@@ -1,11 +1,4 @@
-# csharp-isatty
-
-isatty for c#,  It is heavily inspired by the Go library [go-isatty](https://github.com/mattn/go-isatty).
-
-## Usage
-
-```csharp
-using IsATeletypewriter;
+﻿using IsATeletypewriter;
 
 var stdout = Console.OpenStandardOutput();
 var fd = stdout.GetFileDescriptor();
@@ -22,9 +15,3 @@ else
 {
     Console.WriteLine("Is Not Terminal");
 }
-```
-
-## License
-
-MIT
-

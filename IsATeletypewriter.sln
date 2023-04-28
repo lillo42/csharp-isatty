@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{09F442F1-DF03-43AE-AC8D-8E9F28C1C860}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsATeletypewriter", "src\IsATeletypewriter\IsATeletypewriter.csproj", "{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{988C2683-CCC4-48F7-A869-BBB62315547E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		global.json = global.json
+		GitVersion.yml = GitVersion.yml
+		.gitignore = .gitignore
+		.gitattributes = .gitattributes
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsATeletypewriter.Tests", "tests\IsATeletypewriter.Tests\IsATeletypewriter.Tests.csproj", "{8064AED8-E413-405C-91FC-25670F063F16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7C4AB360-19AC-4B83-B027-71A81B55D8B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{A165371C-96EB-470D-AA2F-36E2590DF087}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "sample\Example\Example.csproj", "{0394F11F-41E8-402C-9929-3513A18A7B10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{FF1E6398-6452-424D-8EED-5140D7BA47CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF1E6398-6452-424D-8EED-5140D7BA47CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1E6398-6452-424D-8EED-5140D7BA47CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8064AED8-E413-405C-91FC-25670F063F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8064AED8-E413-405C-91FC-25670F063F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8064AED8-E413-405C-91FC-25670F063F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8064AED8-E413-405C-91FC-25670F063F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0394F11F-41E8-402C-9929-3513A18A7B10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0394F11F-41E8-402C-9929-3513A18A7B10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0394F11F-41E8-402C-9929-3513A18A7B10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0394F11F-41E8-402C-9929-3513A18A7B10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDB8A3AE-0FA8-4A79-A8ED-C36A4D5C72EA} = {09F442F1-DF03-43AE-AC8D-8E9F28C1C860}
+		{8064AED8-E413-405C-91FC-25670F063F16} = {7C4AB360-19AC-4B83-B027-71A81B55D8B2}
+		{0394F11F-41E8-402C-9929-3513A18A7B10} = {A165371C-96EB-470D-AA2F-36E2590DF087}
+	EndGlobalSection
+EndGlobal
