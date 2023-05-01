@@ -44,7 +44,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Secret] [Parameter("Nuget API key", Name = "api-key")] readonly string NugetToken;
+    [Parameter("Nuget API key")] [Secret] readonly string NugetToken;
 
     [Parameter("NuGet Source for Packages", Name = "nuget-source")]
     readonly string NugetSource = "https://api.nuget.org/v3/index.json";
@@ -143,7 +143,6 @@ class Build : NukeBuild
     Target Publish => _ => _
         .After(Pack)
         .Consumes(Pack)
-        .Requires(() => NugetToken)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {

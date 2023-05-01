@@ -6,11 +6,6 @@
     "build": {
       "type": "object",
       "properties": {
-        "api-key": {
-          "type": "string",
-          "description": "Nuget API key",
-          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
-        },
         "Configuration": {
           "type": "string",
           "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)",
@@ -55,6 +50,11 @@
         "nuget-source": {
           "type": "string",
           "description": "NuGet Source for Packages"
+        },
+        "NugetToken": {
+          "type": "string",
+          "description": "Nuget API key",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "Partition": {
           "type": "string",
