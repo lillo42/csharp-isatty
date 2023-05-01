@@ -8,7 +8,8 @@
       "properties": {
         "api-key": {
           "type": "string",
-          "description": "Nuget API key"
+          "description": "Nuget API key",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "Configuration": {
           "type": "string",
@@ -83,6 +84,7 @@
               "Clean",
               "Compile",
               "Coverage",
+              "CreateRelease",
               "Pack",
               "Publish",
               "Restore",
@@ -103,6 +105,7 @@
               "Clean",
               "Compile",
               "Coverage",
+              "CreateRelease",
               "Pack",
               "Publish",
               "Restore",

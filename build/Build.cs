@@ -1,17 +1,37 @@
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
+using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.Coverlet;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.GitReleaseManager;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
+using static Nuke.Common.Tools.GitReleaseManager.GitReleaseManagerTasks;
 
+
+[GitHubActions("pull-request",
+    GitHubActionsImage.UbuntuLatest,
+    On = new[] { GitHubActionsTrigger.PullRequest },
+    InvokedTargets = new[] { nameof(Tests) },
+    FetchDepth = 0,
+    AutoGenerate = true)]
+[GitHubActions("build-main",
+    GitHubActionsImage.UbuntuLatest,
+    InvokedTargets = new[] { nameof(Tests), nameof(Publish), nameof(Pack), nameof(CreateRelease) },
+    ImportSecrets = new[] { nameof(NugetToken) },
+    OnPushBranches = new []{ "main" },
+    EnableGitHubToken = true,
+    FetchDepth = 0,
+    AutoGenerate = true)]
+[UnsetVisualStudioEnvironmentVariables]
+[ShutdownDotNetAfterServerBuild]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -24,7 +44,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Parameter("Nuget API key", Name = "api-key")] readonly string NugetApiKey;
+    [Secret] [Parameter("Nuget API key", Name = "api-key")] readonly string NugetToken;
 
     [Parameter("NuGet Source for Packages", Name = "nuget-source")]
     readonly string NugetSource = "https://api.nuget.org/v3/index.json";
@@ -81,7 +101,6 @@ class Build : NukeBuild
         .Produces(CoverageReportDirectory)
         .Executes(() => { });
 
-
     Target Tests => _ => _
         .DependsOn(Compile)
         .Produces(TestResultDirectory / "*.trx")
@@ -124,16 +143,30 @@ class Build : NukeBuild
     Target Publish => _ => _
         .After(Pack)
         .Consumes(Pack)
-        .Requires(() => NugetApiKey)
+        .Requires(() => NugetToken)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {
             DotNetNuGetPush(s => s
                 .SetSource(NugetSource)
-                .SetApiKey(NugetApiKey)
+                .SetApiKey(NugetToken)
                 .EnableSkipDuplicate()
                 .CombineWith(
                     PackageDirectory.GlobFiles("*.nupkg", "*.snupkg"),
                     (_, v) => _.SetTargetPath(v)));
+        });
+
+    Target CreateRelease => _ => _
+        .After(Publish)
+        .Requires(() => GitHubActions)
+        .Executes(() =>
+        {
+            GitReleaseManagerCreate(r => r
+                .SetName(GitVersion.AssemblySemVer)
+                .SetRepositoryName(GitHubActions.Repository)
+                .SetRepositoryOwner(GitHubActions.RepositoryOwner)
+                .SetTargetCommitish(GitHubActions.Sha)
+                .AddAssetPaths(PackageDirectory)
+            );
         });
 }
